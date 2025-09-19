@@ -1,5 +1,5 @@
-// config/swagger.js
 const swaggerJSDoc = require('swagger-jsdoc');
+const path = require('path');
 
 const options = {
     definition: {
@@ -7,13 +7,16 @@ const options = {
         info: {
             title: 'Products API',
             version: '1.0.0',
-            description: 'RESTful API for product management (SQLite, Express).'
+            description: 'RESTful API for pizza and ingredient management (SQLite, Express).'
         },
         servers: [
             { url: 'http://localhost:3000', description: 'Local dev server' }
         ]
     },
-    apis: ['./src/routes/*.js', './src/controllers/*.js'] // pick up JSDoc in routes/controllers
+    apis: [
+        path.join(__dirname, '../pizza/routes/*.js'),
+        path.join(__dirname, '../ingredient/routes/*.js')
+    ]
 };
 
 const swaggerSpec = swaggerJSDoc(options);

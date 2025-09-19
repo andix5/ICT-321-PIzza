@@ -1,10 +1,3 @@
-// routes/pizzas.js
-const express = require('express');
-const { body, param } = require('express-validator');
-const pizzaController = require('../controllers/pizzaController');
-
-const router = express.Router();
-
 /**
  * @openapi
  * /api/pizzas:
@@ -38,10 +31,7 @@ const router = express.Router();
  *         description: Pizza created
  *       400:
  *         description: Invalid input
- */
-
-/**
- * @openapi
+ *
  * /api/pizzas/{id}:
  *   get:
  *     summary: Get a pizza by ID
@@ -101,20 +91,25 @@ const router = express.Router();
  *         description: Pizza not found
  */
 
-/**
- * Validation rules
- */
+
+
+const express = require('express');
+const { body, param } = require('express-validator');
+const pizzaController = require('../pizzaController');
+
+const router = express.Router();
+
 const createAndUpdateValidations = [
     body('title').isString().notEmpty().withMessage('title is required'),
-    body('image').optional().isString().withMessage('image must be a string'),
-    body('ingredients').optional().isString().withMessage('ingredients must be a string'),
-    body('price').isFloat({ gt: 0 }).withMessage('price must be a positive number'),
+    body('image').optional().isString(),
+    body('ingredients').optional().isString(),
+    body('price').isFloat({ gt: 0 }).withMessage('price must be positive')
 ];
 
 router.get('/', pizzaController.findAll);
 router.post('/', createAndUpdateValidations, pizzaController.create);
-router.get('/:id', [param('id').isInt().withMessage('id must be an integer')], pizzaController.findOne);
-router.put('/:id', [param('id').isInt().withMessage('id must be an integer'), ...createAndUpdateValidations], pizzaController.update);
-router.delete('/:id', [param('id').isInt().withMessage('id must be an integer')], pizzaController.delete);
+router.get('/:id', [param('id').isInt().withMessage('id must be integer')], pizzaController.findOne);
+router.put('/:id', [param('id').isInt(), ...createAndUpdateValidations], pizzaController.update);
+router.delete('/:id', [param('id').isInt()], pizzaController.delete);
 
 module.exports = router;
