@@ -1,20 +1,22 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-const dbFile = path.join(__dirname, 'ingredient.sqlite');
+const dbFile = path.join(__dirname, 'pizza.sqlite');
 const db = new sqlite3.Database(dbFile, (err) => {
     if (err) {
-        console.error('Could not connect to SQLite (Ingredient DB)', err);
+        console.error('Could not connect to SQLite (src DB)', err);
         process.exit(1);
     }
-    console.log('Connected to Ingredient SQLite DB:', dbFile);
+    console.log('Connected to src SQLite DB:', dbFile);
 });
 
 const initSql = `
-CREATE TABLE IF NOT EXISTS ingredients (
+CREATE TABLE IF NOT EXISTS pizzas (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL UNIQUE,
-    price REAL,
+    title TEXT NOT NULL,
+    image TEXT,
+    ingredients TEXT NOT NULL,
+    price REAL NOT NULL,
     created_at TEXT DEFAULT (datetime('now')),
     updated_at TEXT DEFAULT (datetime('now'))
 );
@@ -22,7 +24,7 @@ CREATE TABLE IF NOT EXISTS ingredients (
 
 db.run(initSql, (err) => {
     if (err) {
-        console.error('Failed to initialize Ingredient DB', err);
+        console.error('Failed to initialize src DB', err);
         process.exit(1);
     }
 });

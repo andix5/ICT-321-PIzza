@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const Ingredient = require('./entities/Ingredient');
+const Ingredient = require('../entities/Ingredient');
 
 exports.create = async (req, res, next) => {
     try {
@@ -19,7 +19,7 @@ exports.findOne = async (req, res, next) => {
         const id = Number(req.params.id);
         if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid ingredient id' });
         const ingredient = await Ingredient.findById(id);
-        if (!ingredient) return res.status(404).json({ error: 'Ingredient not found' });
+        if (!ingredient) return res.status(404).json({ error: 'controllers not found' });
         res.status(200).json(ingredient);
     } catch (err) { next(err); }
 };
@@ -31,7 +31,7 @@ exports.update = async (req, res, next) => {
         if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid ingredient id' });
         const { name, price } = req.body;
         const updated = await Ingredient.update(id, { name, price });
-        if (!updated) return res.status(404).json({ error: 'Ingredient not found' });
+        if (!updated) return res.status(404).json({ error: 'controllers not found' });
         res.status(200).json(updated);
     } catch (err) { next(err); }
 };
@@ -40,7 +40,7 @@ exports.delete = async (req, res, next) => {
         const id = Number(req.params.id);
         if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid ingredient id' });
         const deleted = await Ingredient.delete(id);
-        if (deleted === 0) return res.status(404).json({ error: 'Ingredient not found' });
+        if (deleted === 0) return res.status(404).json({ error: 'controllers not found' });
         res.status(204).send();
     } catch (err) { next(err); }
 };

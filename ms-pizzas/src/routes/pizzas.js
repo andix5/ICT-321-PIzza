@@ -28,7 +28,7 @@
  *                 type: number
  *     responses:
  *       201:
- *         description: Pizza created
+ *         description: src created
  *       400:
  *         description: Invalid input
  *
@@ -45,7 +45,7 @@
  *       200:
  *         description: A single pizza
  *       404:
- *         description: Pizza not found
+ *         description: src not found
  *   put:
  *     summary: Update a pizza by ID
  *     parameters:
@@ -71,11 +71,11 @@
  *                 type: number
  *     responses:
  *       200:
- *         description: Pizza updated
+ *         description: src updated
  *       400:
  *         description: Invalid input
  *       404:
- *         description: Pizza not found
+ *         description: src not found
  *   delete:
  *     summary: Delete a pizza by ID
  *     parameters:
@@ -86,16 +86,16 @@
  *           type: integer
  *     responses:
  *       204:
- *         description: Pizza deleted
+ *         description: src deleted
  *       404:
- *         description: Pizza not found
+ *         description: src not found
  */
 
 
 
 const express = require('express');
 const { body, param } = require('express-validator');
-const pizzaController = require('../pizzaController');
+const pizzaController = require('../controllers/pizzaController');
 
 const router = express.Router();
 

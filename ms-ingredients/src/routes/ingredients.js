@@ -23,7 +23,7 @@
  *                 type: number
  *     responses:
  *       201:
- *         description: Ingredient created
+ *         description: controllers created
  *       400:
  *         description: Invalid input
  *
@@ -40,7 +40,7 @@
  *       200:
  *         description: A single ingredient
  *       404:
- *         description: Ingredient not found
+ *         description: controllers not found
  *   put:
  *     summary: Update an ingredient by ID
  *     parameters:
@@ -62,11 +62,11 @@
  *                 type: number
  *     responses:
  *       200:
- *         description: Ingredient updated
+ *         description: controllers updated
  *       400:
  *         description: Invalid input
  *       404:
- *         description: Ingredient not found
+ *         description: controllers not found
  *   delete:
  *     summary: Delete an ingredient by ID
  *     parameters:
@@ -77,15 +77,15 @@
  *           type: integer
  *     responses:
  *       204:
- *         description: Ingredient deleted
+ *         description: controllers deleted
  *       404:
- *         description: Ingredient not found
+ *         description: controllers not found
  */
 
 
 const express = require('express');
 const { body, param } = require('express-validator');
-const ingredientController = require('../ingredientController');
+const ingredientController = require('../controllers/ingredientController');
 
 
 const router = express.Router();

@@ -1,22 +1,20 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-const dbFile = path.join(__dirname, 'pizza.sqlite');
+const dbFile = path.join(__dirname, 'ingredient.sqlite');
 const db = new sqlite3.Database(dbFile, (err) => {
     if (err) {
-        console.error('Could not connect to SQLite (Pizza DB)', err);
+        console.error('Could not connect to SQLite (controllers DB)', err);
         process.exit(1);
     }
-    console.log('Connected to Pizza SQLite DB:', dbFile);
+    console.log('Connected to controllers SQLite DB:', dbFile);
 });
 
 const initSql = `
-CREATE TABLE IF NOT EXISTS pizzas (
+CREATE TABLE IF NOT EXISTS ingredients (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    image TEXT,
-    ingredients TEXT NOT NULL,
-    price REAL NOT NULL,
+    name TEXT NOT NULL UNIQUE,
+    price REAL,
     created_at TEXT DEFAULT (datetime('now')),
     updated_at TEXT DEFAULT (datetime('now'))
 );
@@ -24,7 +22,7 @@ CREATE TABLE IF NOT EXISTS pizzas (
 
 db.run(initSql, (err) => {
     if (err) {
-        console.error('Failed to initialize Pizza DB', err);
+        console.error('Failed to initialize controllers DB', err);
         process.exit(1);
     }
 });
